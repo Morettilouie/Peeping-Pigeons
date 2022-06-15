@@ -1,3 +1,7 @@
 main {
     display: flex;
 }
+.searchResults {
+    flex-grow: 1;
+    text-align: center;
+}
