@@ -1,7 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --primary-color: rgb(6, 148, 148);
+    --secondary-color: rgb(218, 189, 25);
+    --tertiary-color: rgb(196, 123, 34);
+}
+header {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 20px 0;
+}
 main {
     display: flex;
 }
-.searchResults {
+.search-box {
+    padding-bottom: 50px;
+}
+.search-results {
     flex-grow: 1;
     text-align: center;
 }
