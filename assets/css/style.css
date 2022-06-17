@@ -23,3 +23,11 @@ main {
     flex-grow: 1;
     text-align: center;
 }
+#search-results-display {
+    display: flex; flex-wrap: wrap;
+    gap: 10px;
+}
+.species {
+    text-align: left;
+    flex: 1 200px;
+}
