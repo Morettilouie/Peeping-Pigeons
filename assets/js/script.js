@@ -72,7 +72,7 @@ function displaySpecies(data) {
 
         speciesEl.classList = "species";
         comNameEl.textContent = data[i].comName;
-        sciNameEl.textContent = data[i].sciName;
+        sciNameEl.innerHTML = "<i>" + data[i].sciName + "</i>";
 
         speciesEl.appendChild(comNameEl);
         speciesEl.appendChild(sciNameEl);
