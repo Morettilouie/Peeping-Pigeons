@@ -11,11 +11,21 @@
 header {
     background-color: var(--primary-color);
     color: white;
-    padding: 20px 0;
+    padding: 20px 20px;
 }
+
+header img {
+    max-width: 30%;
+    height: auto;
+    border: 2px solid #551A8B;
+    float: right;
+}
+
 .flex {
     display: flex;
     flex-wrap: wrap;
+    padding: 20px 20px;
+    background-color: var(--secondary-color);
 }
 .left-sidebar {
     flex: 1 33%;
@@ -32,6 +42,11 @@ header {
     display: flex; 
     flex-wrap: wrap;
     gap: 10px;
+    border: 5px solid var(--tertiary-color);
+}
+
+.box-title {
+    width: 55%;
 }
 .species {
     text-align: left;
@@ -42,4 +57,9 @@ header {
     .left-sidebar, .search-results {
         flex: 1 100%;
     }
+}
+
+h2 {
+    color: #551A8B;
+    text-shadow: 2px 2px var(--primary-color);
 }
