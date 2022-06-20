@@ -16,14 +16,12 @@
         <img src="http://clipart-library.com/images/Acbr7x6gi.jpg" alt="bird-sillhouette">
     </header>
     <main class="flex">
-        <section class="leftSideBar">
+        <section class="left-sidebar">
             <div>
                 <h3>What city are you searching in?</h3>
                 <form id="user-form">
                     <input id="city-name" type="type" autofocus="true" />
                     <button type="submit">Search</button>
-                    <input id="shape" type="text" autofocus="true">
-                    <button type="text">Shape</button>
                 </form>
             </div>
             <div class="external-links">
@@ -36,9 +34,13 @@
                 <p>Consider also reading our <a href="./identification.html">advice on bird identification</a>.</p>
             </div>
         </section>
-        <section class="searchResults">
+        <section class="search-results">
             <h2 class="box-title">Here are the results of your search:</h2>
-            <div id="search-results-display"></div>
+            <div class="flex" id="search-results-display">
+            </div>
+            <div class="flex btn-container">
+                <button id="load-more-btn">Load More</button>
+            </div>
         </section>
     </main>
 

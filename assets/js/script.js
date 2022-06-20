@@ -9,6 +9,8 @@ var requestOptions = {
 };
 
 var searchResultsEl = document.querySelector("#search-results-display");
+// this variable manages how many species should be on screen right now
+var displayEndIndex = 20;
 
 // having api keys out in the open is, generally, a security risk
 // however, these keys can only request data, not send it to the servers we're communicating with
@@ -41,9 +43,7 @@ function getSightings(latitude, longitude) {
     // https://documenter.getpostman.com/view/664302/S1ENwy59#62b5ffb3-006e-4e8a-8e50-21d90d036edc
     // documentation of query parameters(? word?) in here
     // note that this fetch will return only one sighting for each species - no dupes
-    fetch(`https://api.ebird.org/v2/data/obs/geo/recent?lat=${latitude}&lng=${longitude}&maxResults=20`, requestOptions)
-    // hardcoded to return 20 just so it doesn't bloat the page during testing
-    // ideal scenario would be returning the full list and using pagination to not display all of it at once
+    fetch(`https://api.ebird.org/v2/data/obs/geo/recent?lat=${latitude}&lng=${longitude}`, requestOptions)
     .then(response => {
         return response.json();
     })
@@ -60,12 +60,11 @@ function getSightings(latitude, longitude) {
             };
         });
         displaySpecies(data);
-        console.log(data);
     });
 };
 
 function displaySpecies(data) {
-    for (var i = 0; i < data.length; i++) {
+    for (var i = 0; i < displayEndIndex; i++) {
         var speciesEl = document.createElement("div");
         var comNameEl = document.createElement("h3");
         var sciNameEl = document.createElement("p");

@@ -39,10 +39,12 @@ header img {
     flex: 2 67%;
 }
 #search-results-display {
-    display: flex; 
-    flex-wrap: wrap;
     gap: 10px;
     border: 5px solid var(--tertiary-color);
+}
+
+.btn-container {
+    justify-content: center;
 }
 
 .box-title {
