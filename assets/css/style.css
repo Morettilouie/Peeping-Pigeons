@@ -52,10 +52,10 @@ header img {
 }
 .species {
     height: 70px;
-    flex: 1 20%;
+    flex: 1 200px;
     text-align: left;
 }
-/* would be nice to remove the extra space this leaves at the bottom */
+/* would be nice to remove the extra space height:70px leaves at the bottom */
 
 @media screen and (max-width: 575px) {
     .left-sidebar, .search-results {

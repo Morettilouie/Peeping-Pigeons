@@ -8,15 +8,15 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-var searchResultsEl = document.querySelector("#search-results-display");
-var searchResults = null;
-var displayStartIndex = 0;
-var displayEndIndex = 20;
-
 // having api keys out in the open is, generally, a security risk
 // however, these keys can only request data, not send it to the servers we're communicating with
 // and it doesn't cost me any money to be making those fetch requests
 // i suppose i could teach myself some backend js to hide them
+
+var searchResultsEl = document.querySelector("#search-results-display");
+var searchResults = null;
+var displayStartIndex = 0;
+var displayEndIndex = 20;
 
 function getCoordinates(location) {
     // reformat text
@@ -61,6 +61,7 @@ function getSightings(latitude, longitude) {
         // searchResults is a global variable, so we can set its value here and refer to that object in multiple places
         searchResults = data;
         displaySpecies(data);
+        setPage();
     });
 };
 
@@ -85,22 +86,7 @@ function displaySpecies(data) {
     };
 };
 
-// loadMoreBtnEl.addEventListener("click", function() {
-//     // move the indexes up
-//     displayStartIndex += 20;
-//     displayEndIndex += 20;
-
-//     // keep the page from trying to make elements with data that doesnt exist
-//     // remember, displaySpecies() stops at the index one less than displayEndIndex
-//     if (displayEndIndex >= searchResults.length) {
-//         displayEndIndex = searchResults.length;
-//         loadMoreBtnEl.setAttribute("disabled", true);
-//     };
-
-//     displaySpecies(searchResults);
-// });
-
-function changePage() {
+function setPage() {
     // enable and disable buttons
     if (displayStartIndex <= 0) {
         document.querySelector("#prev-page").disabled = true;
@@ -121,15 +107,15 @@ function changePage() {
 };
 
 document.querySelector("#next-page").addEventListener("click", function() {
-    displayStartIndex += 22;
-    displayEndIndex += 22;
-    changePage();
+    displayStartIndex += 20;
+    displayEndIndex += 20;
+    setPage();
 });
 
 document.querySelector("#prev-page").addEventListener("click", function() {
-    displayStartIndex -= 22;
-    displayEndIndex -= 22;
-    changePage();
+    displayStartIndex -= 20;
+    displayEndIndex -= 20;
+    setPage();
 })
 
 // TODO: Capture data from form
