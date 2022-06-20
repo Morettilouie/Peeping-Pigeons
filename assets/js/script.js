@@ -8,7 +8,6 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-var loadMoreBtnEl = document.querySelector("#load-more-btn");
 var searchResultsEl = document.querySelector("#search-results-display");
 var searchResults = null;
 var displayStartIndex = 0;
@@ -66,6 +65,9 @@ function getSightings(latitude, longitude) {
 };
 
 function displaySpecies(data) {
+    // putting this up here rather than with the event listeners
+    searchResultsEl.innerHTML = "";
+
     // using displayStartIndex and displayEndIndex here to make this function easier to reuse
     for (var i = displayStartIndex; i < displayEndIndex; i++) {
         var speciesEl = document.createElement("div");
@@ -83,20 +85,52 @@ function displaySpecies(data) {
     };
 };
 
-loadMoreBtnEl.addEventListener("click", function() {
-    // move the indexes up
-    displayStartIndex += 20;
-    displayEndIndex += 20;
+// loadMoreBtnEl.addEventListener("click", function() {
+//     // move the indexes up
+//     displayStartIndex += 20;
+//     displayEndIndex += 20;
 
-    // keep the page from trying to make elements with data that doesnt exist
-    // remember, displaySpecies() stops at the index one less than displayEndIndex
+//     // keep the page from trying to make elements with data that doesnt exist
+//     // remember, displaySpecies() stops at the index one less than displayEndIndex
+//     if (displayEndIndex >= searchResults.length) {
+//         displayEndIndex = searchResults.length;
+//         loadMoreBtnEl.setAttribute("disabled", true);
+//     };
+
+//     displaySpecies(searchResults);
+// });
+
+function changePage() {
+    // enable and disable buttons
+    if (displayStartIndex <= 0) {
+        document.querySelector("#prev-page").disabled = true;
+        // prevent negative values
+        displayStartIndex = 0;
+    } else {
+        document.querySelector("#prev-page").disabled = false;
+    };
     if (displayEndIndex >= searchResults.length) {
+        document.querySelector("#next-page").disabled = true;
+        // prevent page from trying to load data that isnt there
         displayEndIndex = searchResults.length;
-        loadMoreBtnEl.setAttribute("disabled", true);
+    } else {
+        document.querySelector("#next-page").disabled = false;
     };
 
     displaySpecies(searchResults);
+};
+
+document.querySelector("#next-page").addEventListener("click", function() {
+    displayStartIndex += 22;
+    displayEndIndex += 22;
+    changePage();
 });
+
+document.querySelector("#prev-page").addEventListener("click", function() {
+    displayStartIndex -= 22;
+    displayEndIndex -= 22;
+    changePage();
+})
 
 // TODO: Capture data from form
 getCoordinates("Salt Lake City");
