@@ -15,8 +15,7 @@ var requestOptions = {
 
 var searchResultsEl = document.querySelector("#search-results-display");
 var searchResults = null;
-var displayStartIndex = 0;
-var displayEndIndex = 20;
+var pageIndex = 0;
 
 function getCoordinates(location) {
     // reformat text
@@ -37,7 +36,6 @@ function getCoordinates(location) {
     });
 };
 
-// hardcoded to get 20 observations
 function getSightings(latitude, longitude) {
     // https://documenter.getpostman.com/view/664302/S1ENwy59#62b5ffb3-006e-4e8a-8e50-21d90d036edc
     // documentation of query parameters(? word?) in here
@@ -60,24 +58,49 @@ function getSightings(latitude, longitude) {
         });
         // searchResults is a global variable, so we can set its value here and refer to that object in multiple places
         searchResults = data;
-        displaySpecies(data);
-        setPage();
+        displaySpecies();
     });
 };
 
-function displaySpecies(data) {
+function setPage(integer) {
+    var maxPageIndex = Math.floor(searchResults.length / 20);
+
+    if (integer === 1) {
+        pageIndex += 1;
+    } else if (integer === -1) {
+        pageIndex -= 1;
+    };
+
+    // data validation
+    if (pageIndex <= 0) {
+        pageIndex = 0;
+        document.querySelector("#prev-page").disabled = true;
+    } else if (pageIndex >= maxPageIndex) {
+        pageIndex = maxPageIndex;
+        document.querySelector("#next-page").disabled = true;
+    } else {
+        document.querySelector("#prev-page").disabled = false;
+        document.querySelector("#next-page").disabled = false;
+    };
+
+    displaySpecies();
+};
+
+function displaySpecies() {
     // putting this up here rather than with the event listeners
     searchResultsEl.innerHTML = "";
 
-    // using displayStartIndex and displayEndIndex here to make this function easier to reuse
-    for (var i = displayStartIndex; i < displayEndIndex; i++) {
+    var startArrIndex = pageIndex * 20;
+    var endArrIndex = startArrIndex + 20;
+
+    for (var i = startArrIndex; i < endArrIndex; i++) {
         var speciesEl = document.createElement("div");
         var comNameEl = document.createElement("h3");
         var sciNameEl = document.createElement("p");
 
         speciesEl.classList = "species";
-        comNameEl.textContent = data[i].comName;
-        sciNameEl.innerHTML = "<i>" + data[i].sciName + "</i>";
+        comNameEl.textContent = searchResults[i].comName;
+        sciNameEl.innerHTML = "<i>" + searchResults[i].sciName + "</i>";
 
         speciesEl.appendChild(comNameEl);
         speciesEl.appendChild(sciNameEl);
@@ -86,37 +109,14 @@ function displaySpecies(data) {
     };
 };
 
-function setPage() {
-    // enable and disable buttons
-    if (displayStartIndex <= 0) {
-        document.querySelector("#prev-page").disabled = true;
-        // prevent negative values
-        displayStartIndex = 0;
-    } else {
-        document.querySelector("#prev-page").disabled = false;
-    };
-    if (displayEndIndex >= searchResults.length) {
-        document.querySelector("#next-page").disabled = true;
-        // prevent page from trying to load data that isnt there
-        displayEndIndex = searchResults.length;
-    } else {
-        document.querySelector("#next-page").disabled = false;
-    };
-
-    displaySpecies(searchResults);
-};
-
+// page navigation
 document.querySelector("#next-page").addEventListener("click", function() {
-    displayStartIndex += 20;
-    displayEndIndex += 20;
-    setPage();
+    setPage(1);
 });
 
 document.querySelector("#prev-page").addEventListener("click", function() {
-    displayStartIndex -= 20;
-    displayEndIndex -= 20;
-    setPage();
-})
+    setPage(-1);
+});
 
 // TODO: Capture data from form
 getCoordinates("Salt Lake City");
