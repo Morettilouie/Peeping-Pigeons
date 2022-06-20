@@ -9,7 +9,8 @@ var requestOptions = {
 };
 
 var searchResultsEl = document.querySelector("#search-results-display");
-// this variable manages how many species should be on screen right now
+var searchResults = null;
+var displayStartIndex = 0;
 var displayEndIndex = 20;
 
 // having api keys out in the open is, generally, a security risk
@@ -59,12 +60,16 @@ function getSightings(latitude, longitude) {
                 return 0;
             };
         });
+        // searchResults is a global variable, so we can set its value here and refer to that object in multiple places
+        // i think
+        searchResults = data;
         displaySpecies(data);
     });
 };
 
 function displaySpecies(data) {
-    for (var i = 0; i < displayEndIndex; i++) {
+    // using displayStartIndex and displayEndIndex here to make this function easier to reuse
+    for (var i = displayStartIndex; i < displayEndIndex; i++) {
         var speciesEl = document.createElement("div");
         var comNameEl = document.createElement("h3");
         var sciNameEl = document.createElement("p");
