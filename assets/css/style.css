@@ -16,9 +16,12 @@ header {
 
 header img {
     max-width: 30%;
-    height: auto;
+    max-height: 775px;
     border: 2px solid #551A8B;
-    float: right;
+    position: fixed;
+    top: 5px;
+    right: 20px;
+    flex-wrap: flex;
 }
 
 .flex {
@@ -29,6 +32,9 @@ header img {
 }
 .left-sidebar {
     flex: 1 33%;
+}
+.external-resources {
+    padding: 20px;
 }
 .search-box {
     padding-bottom: 50px;
@@ -58,7 +64,6 @@ header img {
         flex: 1 100%;
     }
 }
-
 h2 {
     color: #551A8B;
     text-shadow: 2px 2px var(--primary-color);
