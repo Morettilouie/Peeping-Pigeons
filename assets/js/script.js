@@ -8,6 +8,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
+var loadMoreBtnEl = document.querySelector("#load-more-btn");
 var searchResultsEl = document.querySelector("#search-results-display");
 var searchResults = null;
 var displayStartIndex = 0;
@@ -38,8 +39,6 @@ function getCoordinates(location) {
 };
 
 // hardcoded to get 20 observations
-// TODO: Implement pagination
-// TODO: Implement a means of changing how many sightings per page
 function getSightings(latitude, longitude) {
     // https://documenter.getpostman.com/view/664302/S1ENwy59#62b5ffb3-006e-4e8a-8e50-21d90d036edc
     // documentation of query parameters(? word?) in here
@@ -84,6 +83,21 @@ function displaySpecies(data) {
         searchResultsEl.appendChild(speciesEl);
     };
 };
+
+loadMoreBtnEl.addEventListener("click", function() {
+    // move the indexes up
+    displayStartIndex += 20;
+    displayEndIndex += 20;
+
+    // keep the page from trying to make elements with data that doesnt exist
+    // remember, displaySpecies() stops at the index one less than displayEndIndex
+    if (displayEndIndex >= searchResults.length) {
+        displayEndIndex = searchResults.length;
+        loadMoreBtnEl.setAttribute("disabled", true);
+    };
+
+    displaySpecies(searchResults);
+});
 
 // TODO: Capture data from form
 getCoordinates("Salt Lake City");
