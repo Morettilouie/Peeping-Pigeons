@@ -48,19 +48,18 @@ function getSightings(latitude, longitude) {
         return response.json();
     })
     .then(data => {
-        // would also be good to give the option to change what the results are sorted by
+        // TODO: Allow user to change what the results are sorted by
         // this puts them in alphabetical order based on common names
         data.sort((a, b) => {
-            if (a.comName < b.comName) {
+            if (a.sciName < b.sciName) {
                 return -1;
-            } else if (a.comName > b.comName) {
+            } else if (a.sciName > b.sciName) {
                 return 1;
             } else {
                 return 0;
             };
         });
         // searchResults is a global variable, so we can set its value here and refer to that object in multiple places
-        // i think
         searchResults = data;
         displaySpecies(data);
     });

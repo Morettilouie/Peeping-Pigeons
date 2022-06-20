@@ -52,7 +52,7 @@ header img {
 }
 .species {
     text-align: left;
-    flex: 1;
+    flex: 1 20%;
 }
 
 @media screen and (max-width: 575px) {
