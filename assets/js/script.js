@@ -33,6 +33,9 @@ function getCoordinates(location) {
         var lon = data[0].lon;
         
         getSightings(lat, lon);
+    })
+    .catch(error => {
+        console.log("Error in getCoordinates()");
     });
 };
 
@@ -59,6 +62,9 @@ function getSightings(latitude, longitude) {
         // searchResults is a global variable, so we can set its value here and refer to that object in multiple places
         searchResults = data;
         displaySpecies();
+    })
+    .catch(error => {
+        console.log("Error in getSightings()");
     });
 };
 
@@ -72,6 +78,7 @@ function setPage(integer) {
     };
 
     // data validation
+    // TODO: put those buttons in variables lol
     if (pageIndex <= 0) {
         pageIndex = 0;
         document.querySelector("#prev-page").disabled = true;
@@ -118,5 +125,13 @@ document.querySelector("#prev-page").addEventListener("click", function() {
     setPage(-1);
 });
 
-// TODO: Capture data from form
-getCoordinates("Salt Lake City");
+// the target of a submit event is the form the button is in, not the button itself
+// weird but what can you do
+document.querySelector("#user-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    var cityName = document.querySelector("#city-name").value;
+    cityName = cityName.replace(" ", "-").toLowerCase();
+
+    getCoordinates(cityName);
+});
