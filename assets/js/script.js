@@ -125,6 +125,21 @@ document.querySelector("#prev-page").addEventListener("click", function() {
     setPage(-1);
 });
 
+// Modal elements
+var modalEl = document.querySelector("#modal");
+var closeModalEl = document.querySelector(".close");
+// Close the modal
+var closeModal = function() {
+    modalEl.style.display = "none";
+}
+var outsideClose = function(e) {
+    if(e.target == modalEl) {
+    modal.style.display = "none";
+    }
+}
+closeModalEl.addEventListener("click", closeModal);
+window.addEventListener("click", outsideClose)
+
 // the target of a submit event is the form the button is in, not the button itself
 // weird but what can you do
 document.querySelector("#user-form").addEventListener("submit", function(event) {
