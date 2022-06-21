@@ -15,20 +15,33 @@ header {
 }
 
 header img {
-    max-width: 30%;
+    max-width: 40%;
     max-height: 775px;
     border: 2px solid #551A8B;
-    position: fixed;
+    position: absolute;
     top: 5px;
     right: 20px;
-    flex-wrap: flex;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: content;
+    flex: 1;
+}
+body {
+    background-color: var(--secondary-color);
+}
 .flex {
     display: flex;
     flex-wrap: wrap;
     padding: 20px 20px;
-    background-color: var(--secondary-color);
 }
 .left-sidebar {
     flex: 1 33%;
