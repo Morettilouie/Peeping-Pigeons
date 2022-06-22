@@ -25,7 +25,6 @@ header div {
 }
 
 header div img {
-    border: 2px solid #551A8B;
     max-width: 100%;
 }
 
@@ -44,6 +43,12 @@ body {
 .external-resources {
     padding: 20px;
 }
+
+.envision-logo img {
+    max-width: 30%;
+    height: auto;
+}
+
 .search-box {
     padding-bottom: 50px;
 }
@@ -52,6 +57,13 @@ body {
     text-align: center;
     flex: 2 67%;
 }
+
+.search-results img {
+    max-width: 100px;
+    height: auto;
+    float: left;
+}
+
 #search-results-display {
     display: flex; 
     flex-wrap: wrap;
@@ -77,5 +89,4 @@ body {
 }
 h2 {
     color: #551A8B;
-    text-shadow: 2px 2px var(--primary-color);
 }
