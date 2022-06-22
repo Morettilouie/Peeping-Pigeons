@@ -14,27 +14,22 @@ header {
     padding: 20px 20px;
 }
 
-header img {
-    max-width: 40%;
-    max-height: 775px;
-    border: 2px solid #551A8B;
-    position: absolute;
-    top: 5px;
-    right: 20px;
-}
-
 .row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.column {
-    display: flex;
-    flex-direction: column;
-    flex-basis: content;
-    flex: 1;
+header div {
+    flex: 1 50%;
 }
+
+header div img {
+    border: 2px solid #551A8B;
+    max-width: 100%;
+}
+
+
 body {
     background-color: var(--secondary-color);
 }
@@ -74,6 +69,9 @@ body {
 
 @media screen and (max-width: 575px) {
     .left-sidebar, .search-results {
+        flex: 1 100%;
+    }
+    header div {
         flex: 1 100%;
     }
 }
