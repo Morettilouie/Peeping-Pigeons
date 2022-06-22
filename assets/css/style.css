@@ -46,6 +46,9 @@ body {
 .left-sidebar {
     flex: 1 33%;
 }
+.search {
+    margin-bottom: 50px;
+}
 .external-resources {
     padding: 20px;
 }
@@ -60,15 +63,38 @@ body {
 #search-results-display {
     gap: 10px;
     border: 5px solid var(--tertiary-color);
+    border-radius: 10px;
 }
 
 .btn-container {
     justify-content: center;
 }
 
-.box-title {
-    width: 55%;
+button {
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 3px;
+    color: white;
+    font-size: 15px;
 }
+
+.submit-button {
+    background-color: var(--primary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn {
+    background-color: var(--tertiary-color);
+    border-color: var(--primary-color);
+    margin: 0 5px;
+}
+
+input {
+    border-radius: 8px;
+    font-size: 15px;
+    border-color: var(--secondary-color);
+}
+
 .species {
     height: 70px;
     flex: 1 200px;
