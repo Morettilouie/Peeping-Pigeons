@@ -22,13 +22,8 @@ var modalEl = document.querySelector("#modal");
 var modalContentEl = document.querySelector("#modal-content");
 var closeModalEl = document.querySelector(".close");
 
-function getCoordinates(location) {
-    // reformat text
-    var locationFormatted = location.replace(" ", "-").toLowerCase();
-    // TODO: Allow country selection
-    var country = "US";
-
-    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${locationFormatted},${country}&appid=39a500d5662d1686e6e49030185b149b`)
+function getCoordinates(city, country) {
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${country}&appid=39a500d5662d1686e6e49030185b149b`)
     .then(response => {
         return response.json();
     })
@@ -36,6 +31,8 @@ function getCoordinates(location) {
         // data is returned as an object inside an array, i think to account for cities with the same name
         var lat = data[0].lat;
         var lon = data[0].lon;
+
+        localStorage.setItem("peepingpigeons", city);
         
         getSightings(lat, lon);
     })
@@ -54,7 +51,7 @@ function getSightings(latitude, longitude) {
     })
     .then(data => {
         // TODO: Allow user to change what the results are sorted by
-        // this puts them in alphabetical order based on common names
+        // this puts them in alphabetical order based on scientific names
         data.sort((a, b) => {
             if (a.sciName < b.sciName) {
                 return -1;
@@ -66,10 +63,8 @@ function getSightings(latitude, longitude) {
         });
         // searchResults is a global variable, so we can set its value here and refer to that object in multiple places
         searchResults = data;
+
         displaySpecies();
-    })
-    .catch(error => {
-        console.log("Error in getSightings()");
     });
 };
 
@@ -121,6 +116,19 @@ function displaySpecies() {
     };
 };
 
+function loadPage() {
+    var cityName = localStorage.getItem("peepingpigeons");
+
+    // TODO: Allow country selection
+    var countryCode = "US";
+
+    getCoordinates(cityName, countryCode);
+};
+
+// when the submit button is clicked:
+// the search value will be saved in localStorage
+// when the page is opened, the value from localStorage will be read and displayed
+
 // Close the modal
 var closeModal = function() {
     modalEl.style.display = "none";
@@ -150,7 +158,12 @@ document.querySelector("#user-form").addEventListener("submit", function(event) 
     event.preventDefault();
 
     var cityName = document.querySelector("#city-name").value;
-    cityName = cityName.replace(" ", "-").toLowerCase();
+    cityName = cityName.toLowerCase();
 
-    getCoordinates(cityName);
+    // TODO: Allow country selection
+    var countryCode = "US";
+
+    getCoordinates(cityName, countryCode);
 });
+
+loadPage();
