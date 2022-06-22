@@ -19,13 +19,25 @@ header {
     padding: 20px 20px;
 }
 
-header img {
-    max-width: 30%;
-    height: auto;
-    border: 2px solid #551A8B;
-    float: right;
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
+header div {
+    flex: 1 50%;
+}
+
+header div img {
+    border: 2px solid #551A8B;
+    max-width: 100%;
+}
+
+
+body {
+    background-color: var(--secondary-color);
+}
 .flex {
     display: flex;
     flex-wrap: wrap;
@@ -33,6 +45,9 @@ header img {
 }
 .left-sidebar {
     flex: 1 33%;
+}
+.external-resources {
+    padding: 20px;
 }
 .search-box {
     padding-bottom: 50px;
@@ -65,8 +80,10 @@ header img {
     .left-sidebar, .search-results {
         flex: 1 100%;
     }
+    header div {
+        flex: 1 100%;
+    }
 }
-
 h2 {
     color: #551A8B;
     text-shadow: 2px 2px var(--primary-color);
