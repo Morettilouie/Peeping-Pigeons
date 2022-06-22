@@ -17,6 +17,11 @@ var searchResultsEl = document.querySelector("#search-results-display");
 var searchResults = null;
 var pageIndex = 0;
 
+// Modal elements
+var modalEl = document.querySelector("#modal");
+var modalContentEl = document.querySelector("#modal-content");
+var closeModalEl = document.querySelector(".close");
+
 function getCoordinates(location) {
     // reformat text
     var locationFormatted = location.replace(" ", "-").toLowerCase();
@@ -34,8 +39,8 @@ function getCoordinates(location) {
         
         getSightings(lat, lon);
     })
-    .catch(error => {
-        console.log("Error in getCoordinates()");
+    .catch(() => {
+        modalEl.style.display = "flex";
     });
 };
 
@@ -116,6 +121,17 @@ function displaySpecies() {
     };
 };
 
+// Close the modal
+var closeModal = function() {
+    modalEl.style.display = "none";
+};
+
+var outsideClose = function(e) {
+    if (e.target !== modalContentEl) {
+        modal.style.display = "none";
+    };
+};
+
 // page navigation
 document.querySelector("#next-page").addEventListener("click", function() {
     setPage(1);
@@ -125,20 +141,8 @@ document.querySelector("#prev-page").addEventListener("click", function() {
     setPage(-1);
 });
 
-// Modal elements
-var modalEl = document.querySelector("#modal");
-var closeModalEl = document.querySelector(".close");
-// Close the modal
-var closeModal = function() {
-    modalEl.style.display = "none";
-}
-var outsideClose = function(e) {
-    if(e.target == modalEl) {
-    modal.style.display = "none";
-    }
-}
 closeModalEl.addEventListener("click", closeModal);
-window.addEventListener("click", outsideClose)
+window.addEventListener("click", outsideClose);
 
 // the target of a submit event is the form the button is in, not the button itself
 // weird but what can you do
