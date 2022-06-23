@@ -94,6 +94,11 @@ button {
     margin: 0 5px;
 }
 
+.btn:disabled {
+    border-color: gray;
+    background-color: rgb(188, 138, 77);
+}
+
 input {
     border-radius: 8px;
     font-size: 15px;
