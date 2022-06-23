@@ -22,6 +22,10 @@ var modalEl = document.querySelector("#modal");
 var modalContentEl = document.querySelector("#modal-content");
 var closeModalEl = document.querySelector(".close");
 
+// Page button elements
+var nextPage = document.querySelector("#next-page");
+var prevPage = document.querySelector("#prev-page");
+
 function getCoordinates(city, country) {
     fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${country}&appid=39a500d5662d1686e6e49030185b149b`)
     .then(response => {
@@ -78,16 +82,15 @@ function setPage(integer) {
     };
 
     // data validation
-    // TODO: put those buttons in variables lol
     if (pageIndex <= 0) {
         pageIndex = 0;
-        document.querySelector("#prev-page").disabled = true;
+        prevPage.disabled = true;
     } else if (pageIndex >= maxPageIndex) {
         pageIndex = maxPageIndex;
-        document.querySelector("#next-page").disabled = true;
+        nextPage.disabled = true;
     } else {
-        document.querySelector("#prev-page").disabled = false;
-        document.querySelector("#next-page").disabled = false;
+        prevPage.disabled = false;
+        nextPage.disabled = false;
     };
 
     displaySpecies();
@@ -119,12 +122,12 @@ function displaySpecies() {
 function loadPage() {
     var cityName = localStorage.getItem("peepingpigeons");
 
-    // TODO: Allow country selection
-    var countryCode = "US";
-
     if (!cityName) {
         return false;
     };
+
+    // TODO: Allow country selection
+    var countryCode = "US";
 
     getCoordinates(cityName, countryCode);
 };
@@ -145,11 +148,11 @@ var outsideClose = function(e) {
 };
 
 // page navigation
-document.querySelector("#next-page").addEventListener("click", function() {
+nextPage.addEventListener("click", function() {
     setPage(1);
 });
 
-document.querySelector("#prev-page").addEventListener("click", function() {
+prevPage.addEventListener("click", function() {
     setPage(-1);
 });
 
@@ -161,8 +164,7 @@ window.addEventListener("click", outsideClose);
 document.querySelector("#user-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    var cityName = document.querySelector("#city-name").value;
-    cityName = cityName.toLowerCase();
+    var cityName = document.querySelector("#city-name").value.toLowerCase();
 
     // TODO: Allow country selection
     var countryCode = "US";
