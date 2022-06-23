@@ -122,6 +122,10 @@ function loadPage() {
     // TODO: Allow country selection
     var countryCode = "US";
 
+    if (!cityName) {
+        return false;
+    };
+
     getCoordinates(cityName, countryCode);
 };
 
