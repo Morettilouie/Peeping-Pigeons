@@ -22,11 +22,6 @@ header {
 span {
     font-style: italic;
 }
-.row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
 
 header div {
     flex: 1 50%;
@@ -103,10 +98,12 @@ input {
     border-radius: 8px;
     font-size: 15px;
     border-color: var(--secondary-color);
+    text-transform: capitalize;
 }
 
 .species {
-    flex: 0 calc(25% - 30px);
+    /* flex: 1 calc(25% - 30px); */
+    width: calc(25% - 8px);
     text-align: left;
 }
 
@@ -148,16 +145,16 @@ h2 {
 
 @media screen and (max-width: 992px) {
     .species {
-        flex: 0 calc(33% - 30px);
+        flex: 1 calc(33% - 30px);
     }
 }
 
 @media screen and (max-width: 768px) {
     .left-sidebar, .search-results {
-        flex: 0 100%;
+        flex: 1 100%;
     }
     header div {
-        flex: 0 100%;
+        flex: 1 100%;
     }
 }
 

@@ -127,13 +127,14 @@ function setPage(integer) {
 
 function loadPage() {
     var cityName = localStorage.getItem("peepingpigeons");
+    // TODO: Allow country selection
+    var countryCode = "US";
 
     if (!cityName) {
         return false;
     };
 
-    // TODO: Allow country selection
-    var countryCode = "US";
+    document.querySelector("#city-name").value = cityName;
 
     getCoordinates(cityName, countryCode);
 };
