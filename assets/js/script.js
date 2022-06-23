@@ -67,9 +67,38 @@ function getSightings(latitude, longitude) {
         });
         // searchResults is a global variable, so we can set its value here and refer to that object in multiple places
         searchResults = data;
+        
+        setPage(0);
 
         displaySpecies();
     });
+};
+
+function displaySpecies() {
+    // putting this up here rather than with the event listeners
+    searchResultsEl.innerHTML = "";
+
+    var startArrIndex = pageIndex * 20;
+    var endArrIndex = startArrIndex + 20;
+
+    if (endArrIndex > searchResults.length) {
+        endArrIndex = searchResults.length
+    };
+
+    for (var i = startArrIndex; i < endArrIndex; i++) {
+        var speciesEl = document.createElement("div");
+        var comNameEl = document.createElement("h3");
+        var sciNameEl = document.createElement("p");
+
+        speciesEl.classList = "species";
+        comNameEl.textContent = searchResults[i].comName;
+        sciNameEl.innerHTML = "<i>" + searchResults[i].sciName + "</i>";
+
+        speciesEl.appendChild(comNameEl);
+        speciesEl.appendChild(sciNameEl);
+
+        searchResultsEl.appendChild(speciesEl);
+    };
 };
 
 function setPage(integer) {
@@ -94,29 +123,6 @@ function setPage(integer) {
     };
 
     displaySpecies();
-};
-
-function displaySpecies() {
-    // putting this up here rather than with the event listeners
-    searchResultsEl.innerHTML = "";
-
-    var startArrIndex = pageIndex * 20;
-    var endArrIndex = startArrIndex + 20;
-
-    for (var i = startArrIndex; i < endArrIndex; i++) {
-        var speciesEl = document.createElement("div");
-        var comNameEl = document.createElement("h3");
-        var sciNameEl = document.createElement("p");
-
-        speciesEl.classList = "species";
-        comNameEl.textContent = searchResults[i].comName;
-        sciNameEl.innerHTML = "<i>" + searchResults[i].sciName + "</i>";
-
-        speciesEl.appendChild(comNameEl);
-        speciesEl.appendChild(sciNameEl);
-
-        searchResultsEl.appendChild(speciesEl);
-    };
 };
 
 function loadPage() {
@@ -165,7 +171,6 @@ document.querySelector("#user-form").addEventListener("submit", function(event) 
     event.preventDefault();
 
     var cityName = document.querySelector("#city-name").value.toLowerCase();
-
     // TODO: Allow country selection
     var countryCode = "US";
 

@@ -103,7 +103,7 @@ input {
 }
 
 .species {
-    flex: 1 calc(25% - 30px);
+    flex: 0 calc(25% - 30px);
     text-align: left;
 }
 
@@ -145,16 +145,16 @@ h2 {
 
 @media screen and (max-width: 992px) {
     .species {
-        flex: 1 calc(33% - 30px);
+        flex: 0 calc(33% - 30px);
     }
 }
 
 @media screen and (max-width: 768px) {
     .left-sidebar, .search-results {
-        flex: 1 100%;
+        flex: 0 100%;
     }
     header div {
-        flex: 1 100%;
+        flex: 0 100%;
     }
 }
 
