@@ -30,7 +30,6 @@ header div {
 }
 
 header div img {
-    border: 2px solid #551A8B;
     max-width: 100%;
 }
 
@@ -111,8 +110,7 @@ input {
     }
 }
 h2 {
-    color: #551A8B;
-    text-shadow: 2px 2px var(--primary-color);
+    color: var(--primary-color);
 }
 
 .modal {
