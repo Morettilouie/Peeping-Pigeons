@@ -48,6 +48,9 @@ body {
 .left-sidebar {
     flex: 1 33%;
 }
+#city-name:focus {
+    outline: none;
+}
 .search {
     margin-bottom: 50px;
 }
