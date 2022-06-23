@@ -22,6 +22,10 @@ var modalEl = document.querySelector("#modal");
 var modalContentEl = document.querySelector("#modal-content");
 var closeModalEl = document.querySelector(".close");
 
+// Page button elements
+var nextPage = document.querySelector("#next-page");
+var prevPage = document.querySelector("#prev-page");
+
 function getCoordinates(city, country) {
     fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${country}&appid=39a500d5662d1686e6e49030185b149b`)
     .then(response => {
@@ -63,34 +67,11 @@ function getSightings(latitude, longitude) {
         });
         // searchResults is a global variable, so we can set its value here and refer to that object in multiple places
         searchResults = data;
+        
+        setPage(0);
 
         displaySpecies();
     });
-};
-
-function setPage(integer) {
-    var maxPageIndex = Math.floor(searchResults.length / 20);
-
-    if (integer === 1) {
-        pageIndex += 1;
-    } else if (integer === -1) {
-        pageIndex -= 1;
-    };
-
-    // data validation
-    // TODO: put those buttons in variables lol
-    if (pageIndex <= 0) {
-        pageIndex = 0;
-        document.querySelector("#prev-page").disabled = true;
-    } else if (pageIndex >= maxPageIndex) {
-        pageIndex = maxPageIndex;
-        document.querySelector("#next-page").disabled = true;
-    } else {
-        document.querySelector("#prev-page").disabled = false;
-        document.querySelector("#next-page").disabled = false;
-    };
-
-    displaySpecies();
 };
 
 function displaySpecies() {
@@ -99,6 +80,10 @@ function displaySpecies() {
 
     var startArrIndex = pageIndex * 20;
     var endArrIndex = startArrIndex + 20;
+
+    if (endArrIndex > searchResults.length) {
+        endArrIndex = searchResults.length
+    };
 
     for (var i = startArrIndex; i < endArrIndex; i++) {
         var speciesEl = document.createElement("div");
@@ -116,8 +101,36 @@ function displaySpecies() {
     };
 };
 
+function setPage(integer) {
+    var maxPageIndex = Math.floor(searchResults.length / 20);
+
+    if (integer === 1) {
+        pageIndex += 1;
+    } else if (integer === -1) {
+        pageIndex -= 1;
+    };
+
+    // data validation
+    if (pageIndex <= 0) {
+        pageIndex = 0;
+        prevPage.disabled = true;
+    } else if (pageIndex >= maxPageIndex) {
+        pageIndex = maxPageIndex;
+        nextPage.disabled = true;
+    } else {
+        prevPage.disabled = false;
+        nextPage.disabled = false;
+    };
+
+    displaySpecies();
+};
+
 function loadPage() {
     var cityName = localStorage.getItem("peepingpigeons");
+
+    if (!cityName) {
+        return false;
+    };
 
     // TODO: Allow country selection
     var countryCode = "US";
@@ -141,11 +154,11 @@ var outsideClose = function(e) {
 };
 
 // page navigation
-document.querySelector("#next-page").addEventListener("click", function() {
+nextPage.addEventListener("click", function() {
     setPage(1);
 });
 
-document.querySelector("#prev-page").addEventListener("click", function() {
+prevPage.addEventListener("click", function() {
     setPage(-1);
 });
 
@@ -157,9 +170,7 @@ window.addEventListener("click", outsideClose);
 document.querySelector("#user-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    var cityName = document.querySelector("#city-name").value;
-    cityName = cityName.toLowerCase();
-
+    var cityName = document.querySelector("#city-name").value.toLowerCase();
     // TODO: Allow country selection
     var countryCode = "US";
 
