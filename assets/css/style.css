@@ -68,6 +68,8 @@ body {
 #search-results-display {
     gap: 10px;
     border: 5px solid var(--tertiary-color);
+    height: 420px;
+    overflow: auto;
     border-radius: 10px;
 }
 
