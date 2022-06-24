@@ -12,4 +12,6 @@ Designed by Louie Moretti, Andrew Seymour, and Finn Stitcher. Geocoding API prov
 
 # How to Use
 
-Live access coming soon.
+The site is available live at https://morettilouie.github.io/Peeping-Pigeons/.
+
+![Untitled](https://user-images.githubusercontent.com/104468624/175451154-fbb3a08e-3b43-49c4-8f3a-a0a1f93587bf.png)
